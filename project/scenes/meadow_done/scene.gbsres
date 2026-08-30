@@ -1,0 +1,121 @@
+{
+  "_resourceType": "scene",
+  "id": "23822298-d269-465d-8cef-946f87c6f211",
+  "_index": 3,
+  "name": "meadow done",
+  "backgroundId": "535f2c32-03e2-4fce-968a-bd564dea8dae",
+  "tilesetId": "",
+  "width": 20,
+  "height": 18,
+  "type": "TOPDOWN",
+  "colorModeOverride": "none",
+  "paletteIds": [
+    "05151855-017f-491e-9782-8cd7cd5a6291",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "spritePaletteIds": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "collisions": "",
+  "autoFadeSpeed": null,
+  "symbol": "scene_5",
+  "x": 1631.9617224880385,
+  "y": 652.0829321756318,
+  "script": [
+    {
+      "command": "EVENT_OVERLAY_SHOW",
+      "args": {
+        "color": "black",
+        "x": 0,
+        "y": 0,
+        "__collapse": false
+      },
+      "id": "758a7c2c-446a-427f-b8c6-e5e4285890b9"
+    },
+    {
+      "command": "EVENT_ACTOR_HIDE",
+      "args": {
+        "actorId": "$self$",
+        "__collapse": true
+      },
+      "id": "9175ac6c-93c1-4045-8905-7cc9c29339f2"
+    },
+    {
+      "command": "EVENT_TEXT_DRAW",
+      "args": {
+        "text": "Done\nExit Game",
+        "x": 1,
+        "y": 1,
+        "location": "background",
+        "__collapse": false
+      },
+      "id": "3c205765-a958-4e6e-84a2-cad37b682320"
+    },
+    {
+      "command": "EVENT_OVERLAY_HIDE",
+      "args": {
+        "__collapse": true
+      },
+      "id": "d2cc8e93-e15b-48d8-9253-37bb145e0ea8"
+    },
+    {
+      "command": "EVENT_FADE_IN",
+      "args": {
+        "speed": 4,
+        "__collapse": true
+      },
+      "id": "6caef531-621c-489c-a78a-426e548ef5eb"
+    },
+    {
+      "command": "EVENT_WAIT",
+      "args": {
+        "time": {
+          "type": "number",
+          "value": 1
+        },
+        "frames": {
+          "type": "number",
+          "value": 1
+        },
+        "__collapse": true
+      },
+      "id": "3001fd0a-af8d-4317-a117-60f8515225de"
+    },
+    {
+      "command": "EVENT_SWITCH_SCENE",
+      "args": {
+        "sceneId": "a3b3df80-c835-4fb3-8cd7-79a0d210f074",
+        "x": {
+          "type": "number",
+          "value": 2
+        },
+        "y": {
+          "type": "number",
+          "value": 30
+        },
+        "direction": "right",
+        "fadeSpeed": 4,
+        "__collapse": false
+      },
+      "id": "c06ab664-4b41-415c-9f7d-6bc0aae95a8b"
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "playerSpriteSheetId": "8d5decab-e760-46d8-9fb5-43495a0b841f",
+  "autoFadeEventCollapse": false
+}

@@ -1,0 +1,12 @@
+build/
+cache/
+out/
+
+# CI copies the ROM into Pages. Do not commit it.
+web/snailmail.gbc
+
+*.bak
+*.sav
+*.icloud
+
+user_settings.gbsres

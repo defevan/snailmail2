@@ -1,0 +1,16 @@
+{
+  "_resourceType": "variables",
+  "variables": [
+    {
+      "id": "0",
+      "name": "HasLetter",
+      "symbol": "var_hasletter"
+    },
+    {
+      "id": "1",
+      "name": "Delivered",
+      "symbol": "var_delivered"
+    }
+  ],
+  "constants": []
+}

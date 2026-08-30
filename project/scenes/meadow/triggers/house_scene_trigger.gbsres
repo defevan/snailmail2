@@ -1,0 +1,48 @@
+{
+  "_resourceType": "trigger",
+  "id": "a0971a6b-5480-4fc4-beea-813b22244551",
+  "name": "house scene trigger",
+  "prefabId": "",
+  "x": 144,
+  "y": 28,
+  "symbol": "trigger_3",
+  "prefabScriptOverrides": {},
+  "width": 2,
+  "height": 2,
+  "script": [
+    {
+      "command": "EVENT_SET_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "up"
+        ],
+        "override": true,
+        "__scriptTabs": "press"
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SWITCH_SCENE",
+            "args": {
+              "sceneId": "e5769bf7-94ce-4c4a-b2b2-e3ebccd66c20",
+              "x": {
+                "type": "number",
+                "value": 3
+              },
+              "y": {
+                "type": "number",
+                "value": 16
+              },
+              "direction": "right",
+              "fadeSpeed": "2"
+            },
+            "id": "1eac520e-a3b4-43a9-b673-c169f20ecb4e"
+          }
+        ]
+      },
+      "id": "558f6085-495e-4c57-a331-e8659910dbdf"
+    }
+  ],
+  "leaveScript": [],
+  "_index": 3
+}

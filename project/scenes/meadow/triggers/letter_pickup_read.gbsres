@@ -1,0 +1,121 @@
+{
+  "_resourceType": "trigger",
+  "id": "abaac887-fd28-498b-ac23-6ea9c51aa80e",
+  "name": "letter pickup/read",
+  "prefabId": "",
+  "x": 86,
+  "y": 29,
+  "symbol": "trigger_2",
+  "prefabScriptOverrides": {},
+  "width": 2,
+  "height": 2,
+  "script": [
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "not",
+          "value": {
+            "type": "variable",
+            "value": "0"
+          }
+        },
+        "__collapseElse": true,
+        "__collapse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "0",
+              "value": {
+                "type": "true"
+              },
+              "__collapse": true
+            },
+            "id": "ec29e91b-0bca-4702-a346-aa03a4c1368c"
+          },
+          {
+            "command": "EVENT_SCENE_UPDATE_PAUSE",
+            "args": {
+              "__collapse": true
+            },
+            "id": "24c1bf6c-8812-46af-b2a0-612f476252db"
+          },
+          {
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "Dear Dot, \n\nStuck under a rock \nagain. \n\nSend help. Or a \nsnack. Either works. \n\nTim"
+              ],
+              "__section": "behavior",
+              "avatarId": "",
+              "minHeight": 18,
+              "maxHeight": 18,
+              "textX": 1,
+              "textY": 1,
+              "textHeight": 18,
+              "position": "bottom",
+              "clearPrevious": true,
+              "showFrame": false,
+              "speedIn": -3,
+              "speedOut": -3,
+              "closeWhen": "key",
+              "closeButton": "a",
+              "closeDelayTime": 0.5,
+              "closeDelayFrames": 30,
+              "__collapse": false
+            },
+            "id": "9c755412-f05a-42fe-8e8b-4b91264f544a"
+          },
+          {
+            "command": "EVENT_TEXT",
+            "args": {
+              "text": [
+                "[Gary]: I should try to\nfind Dot..."
+              ],
+              "__section": "behavior",
+              "avatarId": "",
+              "minHeight": 4,
+              "maxHeight": 18,
+              "textX": 1,
+              "textY": 1,
+              "textHeight": 2,
+              "position": "bottom",
+              "clearPrevious": true,
+              "showFrame": true,
+              "speedIn": -1,
+              "speedOut": -1,
+              "closeWhen": "key",
+              "closeButton": "a",
+              "closeDelayTime": 0.5,
+              "closeDelayFrames": 30,
+              "__collapse": false
+            },
+            "id": "97dfcbb8-a0ca-4067-a7bf-d1026f8622f8"
+          },
+          {
+            "command": "EVENT_SCENE_UPDATE_RESUME",
+            "args": {
+              "__collapse": true
+            },
+            "id": "515edbe9-61fa-4cb9-8b74-c120f35936c7"
+          },
+          {
+            "command": "EVENT_ACTOR_DEACTIVATE",
+            "args": {
+              "actorId": "b35bc4c1-1a6f-46be-9dd1-c11c78649a02",
+              "__collapse": true
+            },
+            "id": "25071e07-45c6-43fd-ab85-e9df90cffd7a"
+          }
+        ],
+        "false": []
+      },
+      "id": "2b66e64d-1666-4f7f-a512-f556666ab398"
+    }
+  ],
+  "leaveScript": [],
+  "_index": 2
+}
