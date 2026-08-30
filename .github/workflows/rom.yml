@@ -1,0 +1,96 @@
+name: ROM and Pages
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-rom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build GBC ROM
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/project" \
+            -w /project \
+            pomdap/gb-studio-ci:4.2.2 \
+            gb-studio-cli make:rom snailmail2.gbsproj out/snailmail.gbc
+          if [ ! -s out/snailmail.gbc ]; then
+            echo "ROM was not produced at out/snailmail.gbc"
+            find . -name '*.gbc' -o -name '*.gb' || true
+            exit 1
+          fi
+          ls -l out/snailmail.gbc
+
+      - name: Upload raw GBC
+        uses: actions/upload-artifact@v7
+        with:
+          path: out/snailmail.gbc
+          archive: false
+          if-no-files-found: error
+
+  pages:
+    needs: build-rom
+    if: github.ref == 'refs/heads/master' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download ROM
+        uses: actions/download-artifact@v8
+        with:
+          name: snailmail.gbc
+          path: /tmp/rom
+
+      - name: Assemble Pages site
+        run: |
+          set -euo pipefail
+          ROM=$(find /tmp/rom -type f \( -name '*.gbc' -o -name '*.gb' \) | head -n 1)
+          if [ -z "$ROM" ] || [ ! -s "$ROM" ]; then
+            echo "Downloaded ROM artifact is missing"
+            find /tmp/rom -ls || true
+            exit 1
+          fi
+          cp "$ROM" web/snailmail.gbc
+          test -s web/snailmail.gbc
+          test -f web/index.html
+          test -f web/binjgb.js
+          test -f web/binjgb.wasm
+          test -f web/simple.js
+          test -f web/simple.css
+          ls -l web/snailmail.gbc
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: web
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
