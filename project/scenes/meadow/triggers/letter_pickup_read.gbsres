@@ -49,7 +49,7 @@
               "text": [
                 "Dear Dot, \n\nStuck under a rock \nagain. \n\nSend help. Or a \nsnack. Either works. \n\nTim"
               ],
-              "__section": "layout",
+              "__section": "behavior",
               "avatarId": "",
               "minHeight": 18,
               "maxHeight": 18,
@@ -65,7 +65,7 @@
               "closeButton": "a",
               "closeDelayTime": 0.5,
               "closeDelayFrames": 30,
-              "__collapse": true
+              "__collapse": false
             },
             "id": "9c755412-f05a-42fe-8e8b-4b91264f544a"
           },
@@ -75,7 +75,7 @@
               "text": [
                 "[Gary]: I should try to\nfind Dot..."
               ],
-              "__section": "layout",
+              "__section": "behavior",
               "avatarId": "",
               "minHeight": 4,
               "maxHeight": 18,
@@ -85,13 +85,13 @@
               "position": "bottom",
               "clearPrevious": true,
               "showFrame": true,
-              "speedIn": -3,
-              "speedOut": -3,
+              "speedIn": -1,
+              "speedOut": -1,
               "closeWhen": "key",
               "closeButton": "a",
               "closeDelayTime": 0.5,
               "closeDelayFrames": 30,
-              "__collapse": true
+              "__collapse": false
             },
             "id": "97dfcbb8-a0ca-4067-a7bf-d1026f8622f8"
           },

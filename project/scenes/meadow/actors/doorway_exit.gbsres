@@ -1,0 +1,61 @@
+{
+  "_resourceType": "actor",
+  "id": "4fd1e88f-5d0e-42b3-9969-4683485aa625",
+  "name": "doorway exit",
+  "frame": 0,
+  "animate": false,
+  "spriteSheetId": "be627475-8954-4d94-8bb0-2cf7c6d6f2c7",
+  "prefabId": "",
+  "direction": "right",
+  "moveSpeed": 1,
+  "animSpeed": 15,
+  "paletteId": "",
+  "isPinned": false,
+  "persistent": false,
+  "collisionGroup": "",
+  "collisionExtraFlags": [],
+  "prefabScriptOverrides": {},
+  "symbol": "actor_3",
+  "script": [],
+  "startScript": [],
+  "updateScript": [
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "1"
+        },
+        "__collapseElse": false
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_ACTOR_SHOW",
+            "args": {
+              "actorId": "$self$"
+            },
+            "id": "33d72c3c-ba76-475e-8df6-a9a3b431e730"
+          }
+        ],
+        "false": [
+          {
+            "command": "EVENT_ACTOR_HIDE",
+            "args": {
+              "actorId": "$self$"
+            },
+            "id": "e9930683-b7b5-4bcb-bedd-ae605e9e0c29"
+          }
+        ]
+      },
+      "id": "1c817210-c095-4148-9fca-dafea3643130"
+    }
+  ],
+  "hit1Script": [],
+  "hit2Script": [],
+  "hit3Script": [],
+  "coordinateType": "tiles",
+  "x": 193,
+  "y": 30,
+  "_index": 2
+}

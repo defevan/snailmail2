@@ -1,0 +1,64 @@
+{
+  "_resourceType": "trigger",
+  "id": "5a43b462-ec0e-42eb-bc5f-8e6f2ffbdb1e",
+  "name": "doorway exit trigger",
+  "prefabId": "",
+  "x": 192,
+  "y": 27,
+  "symbol": "trigger_5",
+  "prefabScriptOverrides": {},
+  "width": 4,
+  "height": 4,
+  "script": [
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "variable",
+          "value": "1"
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_SET_INPUT_SCRIPT",
+            "args": {
+              "input": [
+                "up"
+              ],
+              "override": true,
+              "__scriptTabs": "press"
+            },
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_SWITCH_SCENE",
+                  "args": {
+                    "sceneId": "23822298-d269-465d-8cef-946f87c6f211",
+                    "x": {
+                      "type": "number",
+                      "value": 0
+                    },
+                    "y": {
+                      "type": "number",
+                      "value": 0
+                    },
+                    "direction": "right",
+                    "fadeSpeed": "2"
+                  },
+                  "id": "25f179e5-8223-471d-8d87-33df3e178890"
+                }
+              ]
+            },
+            "id": "51cf241c-9ca5-4e74-a89c-f11f59919956"
+          }
+        ],
+        "false": []
+      },
+      "id": "ac35a0bc-dcce-45da-8f31-ca1cdae6c5b8"
+    }
+  ],
+  "leaveScript": [],
+  "_index": 4
+}

@@ -1,7 +1,7 @@
 {
   "_resourceType": "actor",
   "id": "8c394df3-abce-49dd-bae9-49c4efee5b13",
-  "name": "",
+  "name": "npc dot",
   "frame": 0,
   "animate": false,
   "spriteSheetId": "e4f7dafe-6e9c-4517-8a0b-769f288674f5",
@@ -27,7 +27,7 @@
           "value": "0"
         },
         "__collapseElse": false,
-        "__collapse": true
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -79,7 +79,7 @@
               "closeButton": "a",
               "closeDelayTime": 0.5,
               "closeDelayFrames": 30,
-              "__collapse": true
+              "__collapse": false
             },
             "id": "39de4b84-a99c-49fc-93e5-da26be861dac"
           },

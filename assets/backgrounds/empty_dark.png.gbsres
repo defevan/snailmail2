@@ -1,0 +1,12 @@
+{
+  "_resourceType": "background",
+  "id": "535f2c32-03e2-4fce-968a-bd564dea8dae",
+  "name": "empty_dark",
+  "symbol": "bg_empty_dark",
+  "tileColors": "",
+  "filename": "empty_dark.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144
+}

@@ -1,0 +1,12 @@
+{
+  "_resourceType": "background",
+  "id": "41128ad5-d740-45cc-b16a-5eb6c62d743d",
+  "name": "done_tmp",
+  "symbol": "bg_done_tmp",
+  "tileColors": "",
+  "filename": "done_tmp.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144
+}
