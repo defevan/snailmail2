@@ -16,8 +16,9 @@ const ENABLE_REWIND = true;
 const ENABLE_PAUSE = false;
 const ENABLE_SWITCH_PALETTES = false;
 const OSGP_DEADZONE = 0.1;    // On screen gamepad deadzone range
-const GAMEPAD_DEADZONE = 0.35;
 const CGB_COLOR_CURVE = 2;    // 0: none, 1: Sameboy "Emulate Hardware" 2: Gambatte/Gameboy Online
+const GAMEPAD_POLLING_INTERVAL = 1000 / 60 / 4;
+const GAMEPAD_KEYMAP_STANDARD_STR = 'standard';
 
 // List of DMG palettes to switch between. By default it includes all 84
 // built-in palettes. If you want to restrict this, change it to an array of
@@ -196,7 +197,6 @@ class Emulator {
     this.fastForward = false;
     this.keyJoy = emptyJoy();
     this.padJoy = emptyJoy();
-    this.padWasConnected = false;
 
     if (extRamBuffer && extRamBuffer.byteLength > 0) {
       this.loadExtRam(extRamBuffer);
@@ -204,7 +204,8 @@ class Emulator {
 
     this.bindKeys();
     this.bindTouch();
-    this.bindGamepad();
+    this.gamepad = new GamepadInput(this);
+    this.gamepad.init();
 
     this.touchEnabled = 'ontouchstart' in document.documentElement;
     this.updateOnscreenGamepad();
@@ -218,7 +219,7 @@ class Emulator {
   destroy() {
     this.unbindTouch();
     this.unbindKeys();
-    this.unbindGamepad();
+    if (this.gamepad) this.gamepad.shutdown();
     if (this.boundLayoutScreen) {
       window.removeEventListener('resize', this.boundLayoutScreen);
       window.removeEventListener('orientationchange', this.boundLayoutScreen);
@@ -388,7 +389,6 @@ class Emulator {
 
   rafCallback(startMs) {
     this.requestAnimationFrame();
-    this.pollGamepad();
     let deltaSec = 0;
     if (!this.isRewinding) {
       const startSec = startMs / 1000;
@@ -680,70 +680,183 @@ class Emulator {
     this.module._set_joyp_A(this.e, k.a || p.a);
   }
 
-  bindGamepad() {
-    this.boundGamepadConnected = this.onGamepadConnected.bind(this);
-    this.boundGamepadDisconnected = this.onGamepadDisconnected.bind(this);
-    window.addEventListener('gamepadconnected', this.boundGamepadConnected);
-    window.addEventListener('gamepaddisconnected', this.boundGamepadDisconnected);
-  }
-
-  unbindGamepad() {
-    window.removeEventListener('gamepadconnected', this.boundGamepadConnected);
-    window.removeEventListener('gamepaddisconnected', this.boundGamepadDisconnected);
-    this.padJoy = emptyJoy();
-    this.padWasConnected = false;
-  }
-
-  onGamepadConnected() {
-    this.pollGamepad();
-  }
-
-  onGamepadDisconnected() {
-    this.padJoy = emptyJoy();
-    this.padWasConnected = false;
+  setPadJoy(gbKey, pressed) {
+    if (!(gbKey in this.padJoy)) return;
+    this.padJoy[gbKey] = !!pressed;
     this.applyJoyp();
-  }
-
-  pollGamepad() {
-    const list = navigator.getGamepads ? navigator.getGamepads() : [];
-    let pad = null;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i] && list[i].connected) {
-        pad = list[i];
-        break;
-      }
-    }
-    if (!pad) {
-      if (this.padWasConnected) {
-        this.padJoy = emptyJoy();
-        this.padWasConnected = false;
-        this.applyJoyp();
-      }
-      return;
-    }
-    this.padWasConnected = true;
-    const buttons = pad.buttons || [];
-    const axes = pad.axes || [];
-    const pressed = (index) => {
-      const b = buttons[index];
-      return !!(b && (b.pressed || b.value > 0.5));
-    };
-    const axisX = axes[0] || 0;
-    const axisY = axes[1] || 0;
-    const p = this.padJoy;
-    p.up = pressed(12) || axisY < -GAMEPAD_DEADZONE;
-    p.down = pressed(13) || axisY > GAMEPAD_DEADZONE;
-    p.left = pressed(14) || axisX < -GAMEPAD_DEADZONE;
-    p.right = pressed(15) || axisX > GAMEPAD_DEADZONE;
-    p.a = pressed(0) || pressed(3) || pressed(5);
-    p.b = pressed(1) || pressed(2) || pressed(4);
-    p.select = pressed(8);
-    p.start = pressed(9);
-    this.applyJoyp();
-    if (!this.audio.started &&
-        (p.up || p.down || p.left || p.right || p.a || p.b || p.start || p.select)) {
+    if (pressed && this.audio && !this.audio.started) {
       this.audio.startPlayback();
     }
+  }
+
+  clearPadJoy() {
+    this.padJoy = emptyJoy();
+    this.applyJoyp();
+  }
+}
+
+// GB Studio binjgb Gamepad (appData/wasm/binjgb/js/script.js).
+// Writes padJoy via the emulator so keyboard OR is preserved.
+class GamepadInput {
+  constructor(emulator) {
+    this.emulator = emulator;
+  }
+
+  bindKeys(strMapping) {
+    this.GAMEPAD_KEYMAP_STANDARD = [
+      { gb_key: 'b', gp_button: 0, type: 'button' },
+      { gb_key: 'a', gp_button: 1, type: 'button' },
+      { gb_key: 'select', gp_button: 8, type: 'button' },
+      { gb_key: 'start', gp_button: 9, type: 'button' },
+      { gb_key: 'up', gp_button: 12, type: 'button' },
+      { gb_key: 'down', gp_button: 13, type: 'button' },
+      { gb_key: 'left', gp_button: 14, type: 'button' },
+      { gb_key: 'right', gp_button: 15, type: 'button' },
+    ];
+    this.GAMEPAD_KEYMAP_DEFAULT = [
+      { gb_key: 'a', gp_button: 0, type: 'button' },
+      { gb_key: 'b', gp_button: 1, type: 'button' },
+      { gb_key: 'select', gp_button: 2, type: 'button' },
+      { gb_key: 'start', gp_button: 3, type: 'button' },
+      { gb_key: 'up', gp_button: 2, type: 'axis' },
+      { gb_key: 'down', gp_button: 3, type: 'axis' },
+      { gb_key: 'left', gp_button: 0, type: 'axis' },
+      { gb_key: 'right', gp_button: 1, type: 'axis' },
+    ];
+    if (strMapping === GAMEPAD_KEYMAP_STANDARD_STR) {
+      this.gp.keybinds = this.GAMEPAD_KEYMAP_STANDARD;
+    } else {
+      this.gp.keybinds = this.GAMEPAD_KEYMAP_DEFAULT;
+    }
+  }
+
+  cacheValues(gamepad) {
+    for (let k = 0; k < gamepad.buttons.length; k++) {
+      this.gp.buttons.cur[k] =
+          gamepad.buttons[k].value > 0 || gamepad.buttons[k].pressed == true;
+      if (this.gp.buttons.last !== undefined) {
+        this.gp.buttons.changed[k] =
+            this.gp.buttons.cur[k] != this.gp.buttons.last[k];
+      }
+    }
+    for (let k = 0; k < gamepad.axes.length; k++) {
+      this.gp.axes.cur[k * 2] = gamepad.axes[k] < 0;
+      this.gp.axes.cur[k * 2 + 1] = gamepad.axes[k] > 0;
+      if (this.gp.axes.last !== undefined) {
+        this.gp.axes.changed[k * 2] =
+            this.gp.axes.cur[k * 2] != this.gp.axes.last[k * 2];
+        this.gp.axes.changed[k * 2 + 1] =
+            this.gp.axes.cur[k * 2 + 1] != this.gp.axes.last[k * 2 + 1];
+      }
+    }
+    this.gp.axes.last = this.gp.axes.cur.slice(0);
+    this.gp.buttons.last = this.gp.buttons.cur.slice(0);
+  }
+
+  handleButton(keyBind) {
+    let buttonCache;
+    if (keyBind.type === 'button') {
+      buttonCache = this.gp.buttons;
+    } else if (keyBind.type === 'axis') {
+      buttonCache = this.gp.axes;
+    }
+    if (keyBind.gp_button < buttonCache.changed.length) {
+      if (buttonCache.changed[keyBind.gp_button]) {
+        this.emulator.setPadJoy(
+            keyBind.gb_key, buttonCache.cur[keyBind.gp_button]);
+      }
+    }
+  }
+
+  getCurrent() {
+    const list = navigator.getGamepads ? navigator.getGamepads() : [];
+    const gamepad = list[this.gp.apiID];
+    if (gamepad && gamepad.connected) {
+      return gamepad;
+    }
+    return undefined;
+  }
+
+  update() {
+    const gamepad = this.getCurrent();
+    if (gamepad !== undefined) {
+      this.cacheValues(gamepad);
+      for (let i = 0; i < this.gp.keybinds.length; i++) {
+        this.handleButton(this.gp.keybinds[i]);
+      }
+    } else {
+      this.releaseGamepad();
+    }
+  }
+
+  startGamepad(gamepad) {
+    if (this.gp.timerID !== undefined) {
+      return;
+    }
+    if (
+      gamepad.mapping === GAMEPAD_KEYMAP_STANDARD_STR ||
+      (gamepad.axes.length >= 2 && gamepad.buttons.length >= 4)
+    ) {
+      this.gp.apiID = gamepad.index;
+      this.bindKeys(gamepad.mapping);
+      this.gp.timerID = setInterval(
+          () => this.update(), GAMEPAD_POLLING_INTERVAL);
+    }
+  }
+
+  releaseGamepad() {
+    if (this.gp.timerID !== undefined) {
+      clearInterval(this.gp.timerID);
+    }
+    this.gp.axes.last = undefined;
+    this.gp.buttons.last = undefined;
+    this.gp.keybinds = undefined;
+    this.gp.apiID = undefined;
+    this.gp.timerID = undefined;
+    this.emulator.clearPadJoy();
+  }
+
+  checkAlreadyConnected() {
+    const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
+    for (let idx = 0; idx < gamepads.length; idx++) {
+      if (gamepads[idx] !== undefined && gamepads[idx] !== null) {
+        if (gamepads[idx].connected === true) {
+          this.startGamepad(gamepads[idx]);
+        }
+      }
+    }
+  }
+
+  eventConnected(event) {
+    const list = navigator.getGamepads ? navigator.getGamepads() : [];
+    this.startGamepad(list[event.gamepad.index]);
+  }
+
+  eventDisconnected() {
+    this.releaseGamepad();
+  }
+
+  init() {
+    this.gp = {
+      apiID: undefined,
+      timerID: undefined,
+      keybinds: undefined,
+      axes: { last: undefined, cur: [], changed: [] },
+      buttons: { last: undefined, cur: [], changed: [] },
+    };
+    this.checkAlreadyConnected();
+    this.boundGamepadConnected = this.eventConnected.bind(this);
+    this.boundGamepadDisconnected = this.eventDisconnected.bind(this);
+    window.addEventListener('gamepadconnected', this.boundGamepadConnected);
+    window.addEventListener(
+        'gamepaddisconnected', this.boundGamepadDisconnected);
+  }
+
+  shutdown() {
+    this.releaseGamepad();
+    window.removeEventListener('gamepadconnected', this.boundGamepadConnected);
+    window.removeEventListener(
+        'gamepaddisconnected', this.boundGamepadDisconnected);
   }
 }
 
