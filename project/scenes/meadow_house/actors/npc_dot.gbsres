@@ -168,8 +168,8 @@
   "hit1Script": [],
   "hit2Script": [],
   "hit3Script": [],
-  "coordinateType": "tiles",
-  "x": 16,
-  "y": 16,
+  "coordinateType": "pixels",
+  "x": 128,
+  "y": 129,
   "_index": 0
 }

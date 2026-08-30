@@ -72,6 +72,10 @@
     {
       "id": "plat_min_vel",
       "value": 778
+    },
+    {
+      "id": "plat_coyote_frames",
+      "value": 15
     }
   ]
 }

@@ -620,12 +620,12 @@
   "canvasWidth": 32,
   "canvasHeight": 32,
   "boundsX": -4,
-  "boundsY": -21,
+  "boundsY": -20,
   "boundsWidth": 24,
   "boundsHeight": 28,
   "animSpeed": 15,
   "filename": "gary.png",
   "width": 288,
   "height": 32,
-  "checksum": "891c5c5d803b9195045949e9e05ee0cb6f5b431d"
+  "checksum": "c0f9eb4c749174a2135918d7ad4c7b4eb4b0e3a2"
 }
