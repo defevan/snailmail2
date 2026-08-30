@@ -1,0 +1,12 @@
+{
+  "_resourceType": "background",
+  "id": "69908c14-d5c1-484e-80c6-58d5c6ef2131",
+  "name": "house_inside",
+  "symbol": "bg_firstmap",
+  "tileColors": "",
+  "filename": "house_inside.png",
+  "width": 20,
+  "height": 18,
+  "imageWidth": 160,
+  "imageHeight": 144
+}

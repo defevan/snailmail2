@@ -1,0 +1,33 @@
+{
+  "_resourceType": "trigger",
+  "id": "9292554e-7b11-47bf-9975-c13fdf1f3b9f",
+  "name": "leave house",
+  "prefabId": "",
+  "x": 0,
+  "y": 0,
+  "symbol": "trigger_4",
+  "prefabScriptOverrides": {},
+  "width": 1,
+  "height": 18,
+  "script": [
+    {
+      "command": "EVENT_SWITCH_SCENE",
+      "args": {
+        "sceneId": "d6c30595-5f21-4575-9e5f-25dabb0e9ac4",
+        "x": {
+          "type": "number",
+          "value": 144
+        },
+        "y": {
+          "type": "number",
+          "value": 30
+        },
+        "direction": "right",
+        "fadeSpeed": "2"
+      },
+      "id": "5f9cd577-cff3-421a-8cd9-c39c48a4ba7a"
+    }
+  ],
+  "leaveScript": [],
+  "_index": 0
+}

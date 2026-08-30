@@ -1,0 +1,15 @@
+---
+description: Markdown files use simple technical English only
+globs: "**/*.md"
+alwaysApply: true
+---
+
+# Markdown prose
+
+All markdown in this project uses simple technical English.
+
+- Short sentences.
+- State facts. Do not overexplain.
+- No fluff, pep talk, or essay voice.
+- Prefer lists and tables over long paragraphs.
+- Cut words that do not change the meaning.
