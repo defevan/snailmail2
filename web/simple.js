@@ -16,6 +16,7 @@ const ENABLE_REWIND = true;
 const ENABLE_PAUSE = false;
 const ENABLE_SWITCH_PALETTES = false;
 const OSGP_DEADZONE = 0.1;    // On screen gamepad deadzone range
+const GAMEPAD_DEADZONE = 0.35;
 const CGB_COLOR_CURVE = 2;    // 0: none, 1: Sameboy "Emulate Hardware" 2: Gambatte/Gameboy Online
 
 // List of DMG palettes to switch between. By default it includes all 84
@@ -64,6 +65,19 @@ const EVENT_UNTIL_TICKS = 4;
 
 const $ = document.querySelector.bind(document);
 let emulator = null;
+
+function emptyJoy() {
+  return {
+    up: false,
+    down: false,
+    left: false,
+    right: false,
+    a: false,
+    b: false,
+    start: false,
+    select: false,
+  };
+}
 
 const controllerEl = $('#controller');
 const dpadEl = $('#controller_dpad');
@@ -180,6 +194,9 @@ class Emulator {
     this.leftoverTicks = 0;
     this.fps = 60;
     this.fastForward = false;
+    this.keyJoy = emptyJoy();
+    this.padJoy = emptyJoy();
+    this.padWasConnected = false;
 
     if (extRamBuffer && extRamBuffer.byteLength > 0) {
       this.loadExtRam(extRamBuffer);
@@ -187,14 +204,25 @@ class Emulator {
 
     this.bindKeys();
     this.bindTouch();
+    this.bindGamepad();
 
     this.touchEnabled = 'ontouchstart' in document.documentElement;
     this.updateOnscreenGamepad();
+
+    this.boundLayoutScreen = this.layoutScreen.bind(this);
+    window.addEventListener('resize', this.boundLayoutScreen);
+    window.addEventListener('orientationchange', this.boundLayoutScreen);
+    this.layoutScreen();
   }
 
   destroy() {
     this.unbindTouch();
     this.unbindKeys();
+    this.unbindGamepad();
+    if (this.boundLayoutScreen) {
+      window.removeEventListener('resize', this.boundLayoutScreen);
+      window.removeEventListener('orientationchange', this.boundLayoutScreen);
+    }
     this.cancelAnimationFrame();
     clearInterval(this.rewindIntervalId);
     this.rewind.destroy();
@@ -360,6 +388,7 @@ class Emulator {
 
   rafCallback(startMs) {
     this.requestAnimationFrame();
+    this.pollGamepad();
     let deltaSec = 0;
     if (!this.isRewinding) {
       const startSec = startMs / 1000;
@@ -392,7 +421,32 @@ class Emulator {
   }
 
   updateOnscreenGamepad() {
+    const landscape = window.matchMedia('(orientation: landscape)').matches;
+    document.body.classList.toggle('has-touch-pad', this.touchEnabled);
+    document.body.classList.toggle('landscape', landscape);
     $('#controller').style.display = this.touchEnabled ? 'block' : 'none';
+    const hint = $('#hint');
+    if (hint) hint.hidden = this.touchEnabled;
+    this.layoutScreen();
+  }
+
+  layoutScreen() {
+    const canvas = $('canvas');
+    if (!canvas) return;
+    const landscape = window.matchMedia('(orientation: landscape)').matches;
+    document.body.classList.toggle('landscape', landscape);
+    const hint = $('#hint');
+    let availW = window.innerWidth;
+    let availH = window.innerHeight;
+    if (this.touchEnabled && !landscape) {
+      availH -= 210;
+    } else if (hint && !hint.hidden) {
+      availH -= Math.max(hint.offsetHeight, 36) + 24;
+    }
+    const scale = Math.max(1, Math.floor(Math.min(
+        availW / SCREEN_WIDTH, availH / SCREEN_HEIGHT)));
+    canvas.style.width = (SCREEN_WIDTH * scale) + 'px';
+    canvas.style.height = (SCREEN_HEIGHT * scale) + 'px';
   }
 
   bindTouch() {
@@ -604,14 +658,93 @@ class Emulator {
     this.fastForward = isKeyDown;
   }
 
-  setJoypDown(set) { this.module._set_joyp_down(this.e, set); }
-  setJoypUp(set) { this.module._set_joyp_up(this.e, set); }
-  setJoypLeft(set) { this.module._set_joyp_left(this.e, set); }
-  setJoypRight(set) { this.module._set_joyp_right(this.e, set); }
-  setJoypSelect(set) { this.module._set_joyp_select(this.e, set); }
-  setJoypStart(set) { this.module._set_joyp_start(this.e, set); }
-  setJoypB(set) { this.module._set_joyp_B(this.e, set); }
-  setJoypA(set) { this.module._set_joyp_A(this.e, set); }
+  setJoypDown(set) { this.keyJoy.down = !!set; this.applyJoyp(); }
+  setJoypUp(set) { this.keyJoy.up = !!set; this.applyJoyp(); }
+  setJoypLeft(set) { this.keyJoy.left = !!set; this.applyJoyp(); }
+  setJoypRight(set) { this.keyJoy.right = !!set; this.applyJoyp(); }
+  setJoypSelect(set) { this.keyJoy.select = !!set; this.applyJoyp(); }
+  setJoypStart(set) { this.keyJoy.start = !!set; this.applyJoyp(); }
+  setJoypB(set) { this.keyJoy.b = !!set; this.applyJoyp(); }
+  setJoypA(set) { this.keyJoy.a = !!set; this.applyJoyp(); }
+
+  applyJoyp() {
+    const k = this.keyJoy;
+    const p = this.padJoy;
+    this.module._set_joyp_down(this.e, k.down || p.down);
+    this.module._set_joyp_up(this.e, k.up || p.up);
+    this.module._set_joyp_left(this.e, k.left || p.left);
+    this.module._set_joyp_right(this.e, k.right || p.right);
+    this.module._set_joyp_select(this.e, k.select || p.select);
+    this.module._set_joyp_start(this.e, k.start || p.start);
+    this.module._set_joyp_B(this.e, k.b || p.b);
+    this.module._set_joyp_A(this.e, k.a || p.a);
+  }
+
+  bindGamepad() {
+    this.boundGamepadConnected = this.onGamepadConnected.bind(this);
+    this.boundGamepadDisconnected = this.onGamepadDisconnected.bind(this);
+    window.addEventListener('gamepadconnected', this.boundGamepadConnected);
+    window.addEventListener('gamepaddisconnected', this.boundGamepadDisconnected);
+  }
+
+  unbindGamepad() {
+    window.removeEventListener('gamepadconnected', this.boundGamepadConnected);
+    window.removeEventListener('gamepaddisconnected', this.boundGamepadDisconnected);
+    this.padJoy = emptyJoy();
+    this.padWasConnected = false;
+  }
+
+  onGamepadConnected() {
+    this.pollGamepad();
+  }
+
+  onGamepadDisconnected() {
+    this.padJoy = emptyJoy();
+    this.padWasConnected = false;
+    this.applyJoyp();
+  }
+
+  pollGamepad() {
+    const list = navigator.getGamepads ? navigator.getGamepads() : [];
+    let pad = null;
+    for (let i = 0; i < list.length; i++) {
+      if (list[i] && list[i].connected) {
+        pad = list[i];
+        break;
+      }
+    }
+    if (!pad) {
+      if (this.padWasConnected) {
+        this.padJoy = emptyJoy();
+        this.padWasConnected = false;
+        this.applyJoyp();
+      }
+      return;
+    }
+    this.padWasConnected = true;
+    const buttons = pad.buttons || [];
+    const axes = pad.axes || [];
+    const pressed = (index) => {
+      const b = buttons[index];
+      return !!(b && (b.pressed || b.value > 0.5));
+    };
+    const axisX = axes[0] || 0;
+    const axisY = axes[1] || 0;
+    const p = this.padJoy;
+    p.up = pressed(12) || axisY < -GAMEPAD_DEADZONE;
+    p.down = pressed(13) || axisY > GAMEPAD_DEADZONE;
+    p.left = pressed(14) || axisX < -GAMEPAD_DEADZONE;
+    p.right = pressed(15) || axisX > GAMEPAD_DEADZONE;
+    p.a = pressed(0) || pressed(3) || pressed(5);
+    p.b = pressed(1) || pressed(2) || pressed(4);
+    p.select = pressed(8);
+    p.start = pressed(9);
+    this.applyJoyp();
+    if (!this.audio.started &&
+        (p.up || p.down || p.left || p.right || p.a || p.b || p.start || p.select)) {
+      this.audio.startPlayback();
+    }
+  }
 }
 
 class Audio {

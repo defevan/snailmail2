@@ -4,6 +4,12 @@
  *
  * modifications are marked with binjgb below.
  */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   background: #031921;
   color: #fff;
@@ -19,21 +25,50 @@ body {
   overflow: hidden;
 }
 
+/* Center the 160x144 framebuffer. JS sets an integer CSS scale.
+   Do not stretch: default flex align-items:stretch made desktop super-wide. */
 #game {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   touch-action: none;
 }
 
 #game canvas {
-  object-fit: contain;
+  display: block;
+  flex: none;
+  width: 160px;
+  height: 144px;
   image-rendering: -moz-crisp-edges;
   image-rendering: -webkit-crisp-edges;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+#hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  margin: 0;
+  padding: 0 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
+body.has-touch-pad #hint {
+  display: none;
+}
+
+body.has-touch-pad:not(.landscape) #game {
+  bottom: 210px;
 }
 
 #controller {
