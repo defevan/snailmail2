@@ -29,7 +29,7 @@ jobs:
             -v "$GITHUB_WORKSPACE:/project" \
             -w /project \
             pomdap/gb-studio-ci:4.2.2 \
-            gb-studio-cli make:rom snailmail2.gbsproj out/snailmail.gbc
+            gb-studio-cli make:rom snailmail.gbsproj out/snailmail.gbc
           if [ ! -s out/snailmail.gbc ]; then
             echo "ROM was not produced at out/snailmail.gbc"
             find . -name '*.gbc' -o -name '*.gb' || true
