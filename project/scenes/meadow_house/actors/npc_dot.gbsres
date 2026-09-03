@@ -17,7 +17,7 @@
     "solid"
   ],
   "prefabScriptOverrides": {},
-  "symbol": "actor_2",
+  "symbol": "actor_6",
   "script": [
     {
       "command": "EVENT_IF",

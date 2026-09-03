@@ -32,8 +32,8 @@
   "collisions": "",
   "autoFadeSpeed": null,
   "symbol": "scene_4",
-  "x": 1437.0654296875,
-  "y": 91.955338035474,
+  "x": 120,
+  "y": 104,
   "script": [
     {
       "command": "EVENT_OVERLAY_SHOW",
@@ -41,7 +41,7 @@
         "color": "black",
         "x": 0,
         "y": 0,
-        "__collapse": false
+        "__collapse": true
       },
       "id": "3843534c-cf85-412c-9233-90fcc58b3203"
     },
@@ -60,7 +60,7 @@
         "x": 1,
         "y": 1,
         "location": "background",
-        "__collapse": false
+        "__collapse": true
       },
       "id": "0f33afff-4830-4509-8a99-7537e2fc69ac"
     },
@@ -97,14 +97,14 @@
     {
       "command": "EVENT_SWITCH_SCENE",
       "args": {
-        "sceneId": "d6c30595-5f21-4575-9e5f-25dabb0e9ac4",
+        "sceneId": "a294dd99-ef2a-4c1c-8d91-304ca507e7dc",
         "x": {
           "type": "number",
           "value": 2
         },
         "y": {
           "type": "number",
-          "value": 30
+          "value": 32
         },
         "direction": "right",
         "fadeSpeed": 4,

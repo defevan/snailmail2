@@ -1,6 +1,6 @@
 {
   "_resourceType": "actor",
-  "id": "b35bc4c1-1a6f-46be-9dd1-c11c78649a02",
+  "id": "cfaf8e39-ae05-46a2-aea0-fe146a665a6d",
   "name": "letter",
   "frame": 0,
   "animate": false,
@@ -15,7 +15,7 @@
   "collisionGroup": "",
   "collisionExtraFlags": [],
   "prefabScriptOverrides": {},
-  "symbol": "actor_0",
+  "symbol": "actor_2",
   "script": [],
   "startScript": [
     {
@@ -36,12 +36,12 @@
               "actorId": "$self$",
               "__collapse": true
             },
-            "id": "31d21730-5b3b-48fa-83d2-d84f9985ae7d"
+            "id": "79b92623-71cd-42a3-b862-7124f43af07f"
           }
         ],
         "false": []
       },
-      "id": "5ed4f4a4-79dd-4dbd-b0d0-399253131b28"
+      "id": "c5d4a897-1c04-48f5-9df7-d04e77c7d661"
     },
     {
       "command": "EVENT_IF",
@@ -61,12 +61,12 @@
               "actorId": "$self$",
               "__collapse": true
             },
-            "id": "ff55dbcd-bcd3-4716-aefd-274f5b9e6453"
+            "id": "8bd62c43-dfc0-4c16-acd0-cce3d6793938"
           }
         ],
         "false": []
       },
-      "id": "b0ea9cf5-65ac-4c06-9a5d-cae916ce06f5"
+      "id": "0da0c9a3-54fb-471d-bb1e-e8be142bd532"
     }
   ],
   "updateScript": [],
@@ -74,7 +74,7 @@
   "hit2Script": [],
   "hit3Script": [],
   "coordinateType": "tiles",
-  "x": 86,
-  "y": 30,
+  "x": 110,
+  "y": 32,
   "_index": 0
 }

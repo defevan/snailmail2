@@ -1,11 +1,11 @@
 {
   "_resourceType": "trigger",
-  "id": "a0971a6b-5480-4fc4-beea-813b22244551",
+  "id": "dd2ca7a4-92a6-4f20-8ec4-b6b1ac502b2b",
   "name": "house scene trigger",
   "prefabId": "",
-  "x": 144,
-  "y": 28,
-  "symbol": "trigger_3",
+  "x": 128,
+  "y": 31,
+  "symbol": "trigger_8",
   "prefabScriptOverrides": {},
   "width": 2,
   "height": 2,
@@ -36,13 +36,13 @@
               "direction": "right",
               "fadeSpeed": "2"
             },
-            "id": "1eac520e-a3b4-43a9-b673-c169f20ecb4e"
+            "id": "9dcc75f9-1d8e-48d9-8040-34f3d1ef2a02"
           }
         ]
       },
-      "id": "558f6085-495e-4c57-a331-e8659910dbdf"
+      "id": "b91eee1b-9b77-406f-915e-d76abac9ff0e"
     }
   ],
   "leaveScript": [],
-  "_index": 3
+  "_index": 2
 }

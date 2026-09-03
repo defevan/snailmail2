@@ -1,0 +1,140 @@
+{
+  "_resourceType": "trigger",
+  "id": "4aae7e73-98da-4bff-ae29-d9e784ed60cf",
+  "name": "letter pickup/read",
+  "prefabId": "",
+  "x": 110,
+  "y": 31,
+  "symbol": "trigger_7",
+  "prefabScriptOverrides": {},
+  "width": 2,
+  "height": 2,
+  "script": [
+    {
+      "command": "EVENT_IF",
+      "args": {
+        "condition": {
+          "type": "not",
+          "value": {
+            "type": "variable",
+            "value": "1"
+          }
+        },
+        "__collapseElse": true
+      },
+      "children": {
+        "true": [
+          {
+            "command": "EVENT_IF",
+            "args": {
+              "condition": {
+                "type": "not",
+                "value": {
+                  "type": "variable",
+                  "value": "0"
+                }
+              },
+              "__collapseElse": true,
+              "__collapse": false
+            },
+            "children": {
+              "true": [
+                {
+                  "command": "EVENT_SET_VALUE",
+                  "args": {
+                    "variable": "0",
+                    "value": {
+                      "type": "true"
+                    },
+                    "__collapse": true
+                  },
+                  "id": "3614f002-97e8-4dbe-9658-2ab85327dce4"
+                },
+                {
+                  "command": "EVENT_SCENE_UPDATE_PAUSE",
+                  "args": {
+                    "__collapse": true
+                  },
+                  "id": "b7a6025f-ce39-4a38-8620-ff8cbb098d46"
+                },
+                {
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": [
+                      "Dear Dot, \n\nStuck under a rock \nagain. \n\nSend help. Or a \nsnack. Either works. \n\nTim"
+                    ],
+                    "__section": "behavior",
+                    "avatarId": "",
+                    "minHeight": 18,
+                    "maxHeight": 18,
+                    "textX": 1,
+                    "textY": 1,
+                    "textHeight": 18,
+                    "position": "bottom",
+                    "clearPrevious": true,
+                    "showFrame": false,
+                    "speedIn": -3,
+                    "speedOut": -3,
+                    "closeWhen": "key",
+                    "closeButton": "a",
+                    "closeDelayTime": 0.5,
+                    "closeDelayFrames": 30,
+                    "__collapse": true
+                  },
+                  "id": "c0144f17-9532-48bb-a193-c5fc00f29900"
+                },
+                {
+                  "command": "EVENT_TEXT",
+                  "args": {
+                    "text": [
+                      "[Gary]: I should try to\nfind Dot..."
+                    ],
+                    "__section": "behavior",
+                    "avatarId": "",
+                    "minHeight": 4,
+                    "maxHeight": 18,
+                    "textX": 1,
+                    "textY": 1,
+                    "textHeight": 2,
+                    "position": "bottom",
+                    "clearPrevious": true,
+                    "showFrame": true,
+                    "speedIn": -1,
+                    "speedOut": -1,
+                    "closeWhen": "key",
+                    "closeButton": "a",
+                    "closeDelayTime": 0.5,
+                    "closeDelayFrames": 30,
+                    "__collapse": false
+                  },
+                  "id": "319d1528-ed75-4857-bc5c-00c40acbdb50"
+                },
+                {
+                  "command": "EVENT_SCENE_UPDATE_RESUME",
+                  "args": {
+                    "__collapse": true
+                  },
+                  "id": "bd7e3fba-08d4-4bc9-a659-1ca17c265485"
+                },
+                {
+                  "command": "EVENT_ACTOR_DEACTIVATE",
+                  "args": {
+                    "actorId": "cfaf8e39-ae05-46a2-aea0-fe146a665a6d",
+                    "__collapse": true
+                  },
+                  "id": "4a0e0b3e-de02-4820-ae1d-203ed4b84bae"
+                }
+              ],
+              "false": []
+            },
+            "id": "40072a72-06b9-4bf4-858c-926be683416f"
+          }
+        ],
+        "false": []
+      },
+      "id": "df41bb08-62e6-4792-ac5e-228b70bafdda"
+    }
+  ],
+  "leaveScript": [],
+  "_index": 1
+}

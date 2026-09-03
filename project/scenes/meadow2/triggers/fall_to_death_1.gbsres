@@ -1,11 +1,11 @@
 {
   "_resourceType": "trigger",
-  "id": "450d3caa-dadb-42ba-bc6c-c4d11a9f87fb",
+  "id": "c69b96e7-02f6-4880-be3f-64aed9120678",
   "name": "fall to death 1",
   "prefabId": "",
-  "x": 17,
+  "x": 81,
   "y": 35,
-  "symbol": "trigger_0",
+  "symbol": "trigger_4",
   "prefabScriptOverrides": {},
   "width": 8,
   "height": 1,
@@ -13,7 +13,7 @@
     {
       "command": "EVENT_SWITCH_SCENE",
       "args": {
-        "sceneId": "d6c30595-5f21-4575-9e5f-25dabb0e9ac4",
+        "sceneId": "a294dd99-ef2a-4c1c-8d91-304ca507e7dc",
         "x": {
           "type": "number",
           "value": 2
@@ -25,7 +25,7 @@
         "direction": "right",
         "fadeSpeed": "2"
       },
-      "id": "3fba29f7-512c-48b7-801a-6c529b107429"
+      "id": "e5140dbc-82df-4e58-ac72-1d50633fd8ec"
     }
   ],
   "leaveScript": [],

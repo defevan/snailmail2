@@ -1,0 +1,12 @@
+{
+  "_resourceType": "background",
+  "id": "d5eaa9b1-8920-4b18-a11d-f12a6d23b82a",
+  "name": "meadow_map2",
+  "symbol": "bg_meadow_map2",
+  "tileColors": "",
+  "filename": "meadow_map2.png",
+  "width": 160,
+  "height": 36,
+  "imageWidth": 1280,
+  "imageHeight": 288
+}

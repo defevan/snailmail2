@@ -1,6 +1,6 @@
 {
   "_resourceType": "actor",
-  "id": "4fd1e88f-5d0e-42b3-9969-4683485aa625",
+  "id": "34f5fabe-e61b-4afc-b68e-c8084220eb4d",
   "name": "doorway exit",
   "frame": 0,
   "animate": false,
@@ -15,7 +15,7 @@
   "collisionGroup": "",
   "collisionExtraFlags": [],
   "prefabScriptOverrides": {},
-  "symbol": "actor_3",
+  "symbol": "actor_5",
   "script": [],
   "startScript": [],
   "updateScript": [
@@ -35,7 +35,7 @@
             "args": {
               "actorId": "$self$"
             },
-            "id": "33d72c3c-ba76-475e-8df6-a9a3b431e730"
+            "id": "901e80dd-8895-4e92-bff6-5beed7727bf8"
           }
         ],
         "false": [
@@ -44,18 +44,18 @@
             "args": {
               "actorId": "$self$"
             },
-            "id": "e9930683-b7b5-4bcb-bedd-ae605e9e0c29"
+            "id": "2d807d29-91ed-4b2c-90fd-4c6d61ade164"
           }
         ]
       },
-      "id": "1c817210-c095-4148-9fca-dafea3643130"
+      "id": "bdffff76-156d-4223-b444-8609c5bb3c34"
     }
   ],
   "hit1Script": [],
   "hit2Script": [],
   "hit3Script": [],
   "coordinateType": "tiles",
-  "x": 193,
-  "y": 30,
+  "x": 156,
+  "y": 32,
   "_index": 2
 }

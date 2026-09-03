@@ -10,6 +10,11 @@
       "id": "1",
       "name": "Delivered",
       "symbol": "var_delivered"
+    },
+    {
+      "id": "2",
+      "name": "Rolling",
+      "symbol": "var_rolling"
     }
   ],
   "constants": []

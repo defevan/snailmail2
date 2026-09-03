@@ -1,6 +1,6 @@
 {
   "_resourceType": "actor",
-  "id": "63133770-9451-47bc-9e37-1feab8be771c",
+  "id": "b03c72e4-7c5d-436c-b417-7ebd4999f19c",
   "name": "house",
   "frame": 0,
   "animate": false,
@@ -15,7 +15,7 @@
   "collisionGroup": "",
   "collisionExtraFlags": [],
   "prefabScriptOverrides": {},
-  "symbol": "actor_1",
+  "symbol": "actor_4",
   "script": [],
   "startScript": [],
   "updateScript": [],
@@ -23,7 +23,7 @@
   "hit2Script": [],
   "hit3Script": [],
   "coordinateType": "tiles",
-  "x": 144,
-  "y": 30,
+  "x": 128,
+  "y": 32,
   "_index": 1
 }

@@ -1,11 +1,11 @@
 {
   "_resourceType": "trigger",
-  "id": "5a43b462-ec0e-42eb-bc5f-8e6f2ffbdb1e",
+  "id": "6cb15b5c-98fb-49ba-9f17-d0e9a91dccba",
   "name": "doorway exit trigger",
   "prefabId": "",
-  "x": 192,
-  "y": 27,
-  "symbol": "trigger_5",
+  "x": 155,
+  "y": 29,
+  "symbol": "trigger_9",
   "prefabScriptOverrides": {},
   "width": 4,
   "height": 4,
@@ -47,18 +47,18 @@
                     "direction": "right",
                     "fadeSpeed": "2"
                   },
-                  "id": "25f179e5-8223-471d-8d87-33df3e178890"
+                  "id": "2299e7e9-a7ee-4492-9ea0-374b63c68156"
                 }
               ]
             },
-            "id": "51cf241c-9ca5-4e74-a89c-f11f59919956"
+            "id": "736a19a0-b020-4ce4-bf26-c13145473c4f"
           }
         ],
         "false": []
       },
-      "id": "ac35a0bc-dcce-45da-8f31-ca1cdae6c5b8"
+      "id": "5af29a90-bac7-4228-8372-dd0eb05e5665"
     }
   ],
   "leaveScript": [],
-  "_index": 4
+  "_index": 3
 }
