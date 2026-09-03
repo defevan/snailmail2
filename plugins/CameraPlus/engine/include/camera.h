@@ -28,28 +28,28 @@ extern BYTE camera_deadzone_y;
 extern UBYTE camera_settings;
 
 // CAMERAPLUS DEFAULT VARIABLES
-extern UBYTE camplus_status;
-extern UBYTE camplus_init;
-extern BYTE camplus_offset_x;
-extern BYTE camplus_offset_y;
-extern BYTE camplus_deadzone_x;
-extern BYTE camplus_deadzone_y;
+extern UBYTE camplus_status;		//Decides whether the plugin will be used
+extern UBYTE camplus_init;			// Decides whether to use plugin-defined values or scene-default values
+extern BYTE camplus_offset_x;		// Plugin-Defined default X Offset value
+extern BYTE camplus_offset_y;		// Plugin-Defined default Y Offset value
+extern BYTE camplus_deadzone_x;		// Plugin-Defined default X Deadzone value
+extern BYTE camplus_deadzone_y;		// Plugin-Defined default Y Deadzone value
 
 // CAMERAPLUS LOOK-AHEAD VARIABLES
-extern BYTE lookahead_offset_x;
-extern BYTE lookahead_offset_y;
-extern UBYTE lookahead_check_x;
-extern UBYTE lookahead_check_y;
-extern UBYTE lookahead_check_f;
-extern UBYTE lookahead_log_x;
-extern UBYTE lookahead_log_y;
-extern UBYTE lookahead_log_f;
-extern UBYTE lookahead_speed_x;
-extern UBYTE lookahead_speed_y;
-extern UBYTE lookahead_speed_f;
-extern UBYTE lookahead_state;
-extern UBYTE lookahead_behavior;
-extern UBYTE lookahead_init;
+extern BYTE lookahead_offset_x;		// Look-ahead default X Offset value
+extern BYTE lookahead_offset_y;		// Look-ahead default Y Offset value
+extern UBYTE lookahead_check_x;		// Look-ahead "denominator" for when X movement uses a fraction speed
+extern UBYTE lookahead_check_y;		// Look-ahead "denominator" for when Y movement uses a fraction speed
+extern UBYTE lookahead_check_f;		// Look-ahead "denominator" for when Fade-Out movement uses a fraction speed
+extern UBYTE lookahead_log_x;		// Look-ahead tick for stalling with X movement fraction speeds
+extern UBYTE lookahead_log_y;		// Look-ahead tick for stalling with Y movement fraction speeds
+extern UBYTE lookahead_log_f;		// Look-ahead tick for stalling with Fade-Out movement fraction speeds
+extern UBYTE lookahead_speed_x;		// Look-ahead speed when moving the camera along the X-axis
+extern UBYTE lookahead_speed_y;		// Look-ahead speed when moving the camera along the Y-axis
+extern UBYTE lookahead_speed_f;		// Look-ahead speed when fading away the camera
+extern UBYTE lookahead_state;		// Look-ahead state settings: 0 is default, 1 is fade-out, and 2 is paused
+extern UBYTE lookahead_behavior;	// Look-ahead behavior across the X-axis and Y-axis
+extern UBYTE lookahead_init;		// Look-ahead offsets when starting the scene
 
 void camera_init(void) BANKED;
 

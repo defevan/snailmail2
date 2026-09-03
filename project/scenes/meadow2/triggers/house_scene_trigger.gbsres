@@ -17,7 +17,8 @@
           "up"
         ],
         "override": true,
-        "__scriptTabs": "press"
+        "__scriptTabs": "press",
+        "__collapse": false
       },
       "children": {
         "true": [
@@ -43,6 +44,16 @@
       "id": "b91eee1b-9b77-406f-915e-d76abac9ff0e"
     }
   ],
-  "leaveScript": [],
+  "leaveScript": [
+    {
+      "command": "EVENT_REMOVE_INPUT_SCRIPT",
+      "args": {
+        "input": [
+          "up"
+        ]
+      },
+      "id": "b5dd3b1d-e7a0-4eb2-b3f4-b47c7d1d0979"
+    }
+  ],
   "_index": 2
 }
