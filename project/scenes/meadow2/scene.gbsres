@@ -1,0 +1,88 @@
+{
+  "_resourceType": "scene",
+  "id": "a294dd99-ef2a-4c1c-8d91-304ca507e7dc",
+  "_index": 0,
+  "name": "meadow2",
+  "backgroundId": "d5eaa9b1-8920-4b18-a11d-f12a6d23b82a",
+  "tilesetId": "",
+  "width": 160,
+  "height": 36,
+  "type": "PLATFORM",
+  "colorModeOverride": "none",
+  "paletteIds": [],
+  "spritePaletteIds": [],
+  "collisions": "00112d+0f4+009c+0f!002+0f!009a+0f3+002+0f!009a+0f!004+0f!006c+0fe+001e+0f3+004+0f!006c+0f!00c+0f!001e+0f!006+0f!004f+0f1e+00c+0f20+006+0f!008+0f47+0050+0f!008+0f!0096+0f!008+0f!0046+",
+  "autoFadeSpeed": 1,
+  "symbol": "scene_meadow2",
+  "x": 120,
+  "y": 296,
+  "script": [
+    {
+      "command": "EVENT_SET_PLATFORMER_CALLBACK_SCRIPT",
+      "args": {
+        "event": "dashStart",
+        "__scriptTabs": "scriptinput",
+        "__collapse": false
+      },
+      "children": {
+        "script": [
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "2",
+              "value": {
+                "type": "true"
+              }
+            },
+            "id": "4f173065-9c88-45a9-bcc5-64f1dee8c3d4"
+          },
+          {
+            "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+            "args": {
+              "actorId": "player",
+              "speed": 3
+            },
+            "id": "f4e15602-bef6-46ef-b946-c207ca3c9d2c"
+          }
+        ]
+      },
+      "id": "3862c688-a076-4ad9-8270-54679e1bfca3"
+    },
+    {
+      "command": "EVENT_SET_PLATFORMER_CALLBACK_SCRIPT",
+      "args": {
+        "event": "dashEnd",
+        "__scriptTabs": "scriptinput",
+        "__collapse": false
+      },
+      "children": {
+        "script": [
+          {
+            "command": "EVENT_ACTOR_SET_ANIMATION_SPEED",
+            "args": {
+              "actorId": "player",
+              "speed": 15
+            },
+            "id": "b5de284f-5318-4c17-98d5-ad3455ec9eab"
+          },
+          {
+            "command": "EVENT_SET_VALUE",
+            "args": {
+              "variable": "2",
+              "value": {
+                "type": "false"
+              }
+            },
+            "id": "6fbba5ea-c341-4bfd-8cd8-fe110a01d949"
+          }
+        ]
+      },
+      "id": "35a2d094-f4e0-4ed7-bf3e-aaa85ba2183a"
+    }
+  ],
+  "playerHit1Script": [],
+  "playerHit2Script": [],
+  "playerHit3Script": [],
+  "playerSpriteSheetId": "cdfef564-b75a-410c-8bc3-15879156a068",
+  "autoFadeEventCollapse": false
+}

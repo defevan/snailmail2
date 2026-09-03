@@ -54,6 +54,54 @@
       "value": 0
     },
     {
+      "id": "FEAT_PLATFORM_DASH",
+      "value": 1
+    },
+    {
+      "id": "plat_dash_active",
+      "value": 1
+    },
+    {
+      "id": "PLATFORM_DASH_ANIM",
+      "value": "Attack"
+    },
+    {
+      "id": "INPUT_PLATFORM_DASH",
+      "value": "DASH_INPUT_B"
+    },
+    {
+      "id": "plat_dash_from",
+      "value": 3
+    },
+    {
+      "id": "plat_dash_mask",
+      "value": 255
+    },
+    {
+      "id": "plat_dash_dist",
+      "value": 2240
+    },
+    {
+      "id": "plat_dash_frames",
+      "value": 24
+    },
+    {
+      "id": "plat_dash_ready_frames",
+      "value": 20
+    },
+    {
+      "id": "plat_dash_deadzone",
+      "value": 0
+    },
+    {
+      "id": "plat_dash_jump_from",
+      "value": 3
+    },
+    {
+      "id": "FEAT_PLATFORM_DASH_USE_GRAVITY",
+      "value": 0
+    },
+    {
       "id": "plat_walk_acc",
       "value": 778
     },
@@ -76,6 +124,38 @@
     {
       "id": "plat_coyote_frames",
       "value": 15
+    },
+    {
+      "id": "camplus_status",
+      "value": 0
+    },
+    {
+      "id": "camplus_init",
+      "value": 0
+    },
+    {
+      "id": "lookahead_behavior",
+      "value": 0
+    },
+    {
+      "id": "lookahead_init",
+      "value": 0
+    },
+    {
+      "id": "lookahead_speed_x",
+      "value": 4
+    },
+    {
+      "id": "lookahead_offset_x",
+      "value": 48
+    },
+    {
+      "id": "lookahead_speed_y",
+      "value": 1
+    },
+    {
+      "id": "lookahead_speed_f",
+      "value": 1
     }
   ]
 }
